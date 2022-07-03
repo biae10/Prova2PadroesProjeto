@@ -17,6 +17,7 @@ import prova2esboco.strategy.FullWorkoutStrategy;
 public class Programa {
     
     private List<Serie> series;
+    List<Serie> listStrategy;
     private TipoPrograma tipo;
 
     public Programa(List<Serie> series, TipoPrograma tipo) {
@@ -26,24 +27,33 @@ public class Programa {
     
     public Programa(){}
     
-    public List<Serie> proximaSerie() throws Exception{
-        
-        List<Serie> seriesDoPrograma;
-        
-        
+    public void init() throws Exception{
+       
         if(this.tipo == TipoPrograma.FullWorkout){
             FullWorkoutStrategy fws = new FullWorkoutStrategy();
-            seriesDoPrograma = fws.proximaSerie(series);
+            this.listStrategy = fws.proximaSerie(series);
         }else if(this.tipo == TipoPrograma.ABCD){
             ABCDStrategy abcdS = new ABCDStrategy();
-            seriesDoPrograma = abcdS.proximaSerie(series);
+            this.listStrategy = abcdS.proximaSerie(series);
         }else if(this.tipo == TipoPrograma.Cardio){
             CardioStrategy cs = new CardioStrategy();
-            seriesDoPrograma = cs.proximaSerie(series);
+            this.listStrategy = cs.proximaSerie(series);
         }else{
             throw new Exception("O tipo informado é invalido.");
         }
-        return seriesDoPrograma;
+    }
+    
+    public boolean temProximo(int iterador){
+        
+        if(iterador >= this.listStrategy.size()){
+            return false;
+        }
+        return true;
+    }
+    
+    public Serie proximaSerie(int iterador) throws Exception{
+
+        return this.listStrategy.get(iterador);
     }
 
     public List<Serie> getSeries() {
@@ -61,5 +71,8 @@ public class Programa {
     public void setTipo(TipoPrograma tipo) {
         this.tipo = tipo;
     }
-    
+
+    public List<Serie> getListStrategy() {
+        return listStrategy;
+    }
 }

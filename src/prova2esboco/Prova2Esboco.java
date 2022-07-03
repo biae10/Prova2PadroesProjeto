@@ -103,8 +103,20 @@ public class Prova2Esboco {
                 .addSerie(serie3)
                 .addSerie(serie3)
                 .build();
-
-            System.out.println(programa.proximaSerie());
+            
+            int iterador = 0;
+            
+            programa.setTipo(TipoPrograma.Cardio);
+            programa.init();
+            while(programa.temProximo(iterador)){
+                Serie serie = programa.proximaSerie(iterador);
+                System.out.println(serie);
+                iterador++;
+            }
+            
+            //System.out.println(programa.getListStrategy());
+            
+            //System.out.println(programa.proximaSerie());
         }catch(Exception e){
             
         }
