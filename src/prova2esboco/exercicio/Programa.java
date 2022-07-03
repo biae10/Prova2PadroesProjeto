@@ -5,7 +5,10 @@
  */
 package prova2esboco.exercicio;
 
+import java.util.ArrayList;
 import java.util.List;
+import prova2esboco.listener.Listener;
+import prova2esboco.listener.Subject;
 import prova2esboco.strategy.ABCDStrategy;
 import prova2esboco.strategy.CardioStrategy;
 import prova2esboco.strategy.FullWorkoutStrategy;
@@ -15,12 +18,13 @@ import prova2esboco.strategy.ProgramaStrategy;
  *
  * @author HAPPY
  */
-public class Programa {
+public class Programa implements Subject{
     
     private List<Serie> series;
-    List<Serie> listStrategy;
-    private TipoPrograma tipo;
+    private List<Serie> listStrategy;
     private ProgramaStrategy strategy;
+    private TipoPrograma tipo;
+    private List<Listener> observadores = new ArrayList();
 
     public Programa(List<Serie> series, TipoPrograma tipo,ProgramaStrategy strategy) {
         this.series = series;
@@ -35,15 +39,14 @@ public class Programa {
     }
     
     public boolean temProximo(int iterador){
-        
         if(iterador >= this.listStrategy.size()){
+            this.notificar();
             return false;
         }
         return true;
     }
     
     public Serie proximaSerie(int iterador) throws Exception{
-
         return this.listStrategy.get(iterador);
     }
 
@@ -67,5 +70,22 @@ public class Programa {
 
     public List<Serie> getListStrategy() {
         return listStrategy;
+    }
+
+    @Override
+    public void inscrever(Listener observador) {
+        this.observadores.add(observador);
+    }
+
+    @Override
+    public void desinscrever(Listener observador) {
+        this.observadores.remove(observador);
+    }
+
+    @Override
+    public void notificar() {
+        for(Listener listener: this.observadores){
+            listener.update(this.tipo);
+        }
     }
 }

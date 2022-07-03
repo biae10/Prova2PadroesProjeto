@@ -19,6 +19,8 @@ import prova2esboco.builder.SerieBuilder;
 import prova2esboco.exercicio.Programa;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.exercicio.TipoPrograma;
+import prova2esboco.model.Instrutor;
+import prova2esboco.model.Pessoa;
 
 /**
  *
@@ -51,7 +53,7 @@ public class Prova2Esboco {
         Exercicio perna = exercicioBuilder.reset()
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
-                .addTipo(TipoExercicio.Funcional)
+                .addTipo(TipoExercicio.Cardiovascular)
                 .build();
         
         Exercicio Abdominal = exercicioBuilder.reset()
@@ -62,8 +64,8 @@ public class Prova2Esboco {
                 .addTipo(TipoExercicio.Cardiovascular)
                 .build();
         
-        System.out.println(barriga.getGrupos());
-        System.out.println(barriga.getTipos());
+      //  System.out.println(barriga.getGrupos());
+        //System.out.println(barriga.getTipos());
          
         try{
             
@@ -104,18 +106,32 @@ public class Prova2Esboco {
                 .addSerie(serie3)
                 .build();
             
+            
+            Pessoa instrutor1 = new Instrutor("Bianca");
+            Pessoa instrutor2 = new Instrutor("Isello");
+            Pessoa instrutor3 = new Instrutor("Tales");
+            Pessoa instrutor4 = new Instrutor("Daniel");
+            Pessoa instrutor5 = new Instrutor("Vitor");
+            
+            programa.inscrever(instrutor1);
+            programa.inscrever(instrutor2);
+            programa.inscrever(instrutor3);
+            programa.inscrever(instrutor4);
+            programa.inscrever(instrutor5);
+            
+           //programa.desinscrever(instrutor1);
+            
             int iterador = 0;
             
-           // programa.setTipo(TipoPrograma.ABCD);
+            programa.setTipo(TipoPrograma.Cardio);
             programa.init();
             while(programa.temProximo(iterador)){
                 Serie serie = programa.proximaSerie(iterador);
-                System.out.println(serie);
                 iterador++;
             }
             
         }catch(Exception e){
-            
+            System.out.println(e);
         }
         
         
