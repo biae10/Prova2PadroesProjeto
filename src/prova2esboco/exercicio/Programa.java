@@ -9,6 +9,7 @@ import java.util.List;
 import prova2esboco.strategy.ABCDStrategy;
 import prova2esboco.strategy.CardioStrategy;
 import prova2esboco.strategy.FullWorkoutStrategy;
+import prova2esboco.strategy.ProgramaStrategy;
 
 /**
  *
@@ -19,28 +20,18 @@ public class Programa {
     private List<Serie> series;
     List<Serie> listStrategy;
     private TipoPrograma tipo;
+    private ProgramaStrategy strategy;
 
-    public Programa(List<Serie> series, TipoPrograma tipo) {
+    public Programa(List<Serie> series, TipoPrograma tipo,ProgramaStrategy strategy) {
         this.series = series;
         this.tipo = tipo;
+        this.strategy = strategy;
     }
     
     public Programa(){}
     
     public void init() throws Exception{
-       
-        if(this.tipo == TipoPrograma.FullWorkout){
-            FullWorkoutStrategy fws = new FullWorkoutStrategy();
-            this.listStrategy = fws.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.ABCD){
-            ABCDStrategy abcdS = new ABCDStrategy();
-            this.listStrategy = abcdS.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.Cardio){
-            CardioStrategy cs = new CardioStrategy();
-            this.listStrategy = cs.proximaSerie(series);
-        }else{
-            throw new Exception("O tipo informado é invalido.");
-        }
+        this.listStrategy = this.strategy.proximaSerie(series);  
     }
     
     public boolean temProximo(int iterador){
@@ -68,8 +59,10 @@ public class Programa {
         return tipo;
     }
 
-    public void setTipo(TipoPrograma tipo) {
+    public void setTipo(TipoPrograma tipo) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ProgramaStrategy strategy = (ProgramaStrategy) Class.forName(tipo.getClassName()).newInstance();
         this.tipo = tipo;
+        this.strategy = strategy;
     }
 
     public List<Serie> getListStrategy() {

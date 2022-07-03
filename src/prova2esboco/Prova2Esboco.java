@@ -97,7 +97,7 @@ public class Prova2Esboco {
             ProgramaBuilder programaBuilder = new ProgramaBuilder();
             
             Programa programa = programaBuilder.reset()
-                .setTipo(TipoPrograma.ABCD)
+                .setTipo(TipoPrograma.Cardio)
                 .addSerie(serie1)
                 .addSerie(serie2)
                 .addSerie(serie3)
@@ -106,7 +106,7 @@ public class Prova2Esboco {
             
             int iterador = 0;
             
-            programa.setTipo(TipoPrograma.Cardio);
+           // programa.setTipo(TipoPrograma.ABCD);
             programa.init();
             while(programa.temProximo(iterador)){
                 Serie serie = programa.proximaSerie(iterador);
@@ -114,9 +114,6 @@ public class Prova2Esboco {
                 iterador++;
             }
             
-            //System.out.println(programa.getListStrategy());
-            
-            //System.out.println(programa.proximaSerie());
         }catch(Exception e){
             
         }

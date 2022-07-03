@@ -17,6 +17,6 @@ public interface ProgramaFactory {
     
     public ProgramaFactory reset();
     public ProgramaFactory addSerie(Serie serie);
-    public ProgramaFactory setTipo(TipoPrograma tipo);
+    public ProgramaFactory setTipo(TipoPrograma tipo) throws ClassNotFoundException, InstantiationException, IllegalAccessException;
     public Programa build();
 }
