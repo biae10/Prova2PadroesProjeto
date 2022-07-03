@@ -10,5 +10,17 @@ package prova2esboco.exercicio;
  * @author HAPPY
  */
 public enum TipoPrograma {
-    FullWorkout, ABCD,Cardio;
+    FullWorkout("prova2esboco.strategy.FullWorkoutStrategy"), 
+    ABCD("prova2esboco.strategy.ABCDStrategy"),
+    Cardio("prova2esboco.strategy.CardioStrategy");
+    
+    String className;
+    
+    TipoPrograma(String nome){
+        this.className = nome;
+    }
+    
+    public String getClassName(){
+        return this.className;
+    }
 }

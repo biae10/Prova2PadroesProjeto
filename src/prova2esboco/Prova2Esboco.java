@@ -97,14 +97,23 @@ public class Prova2Esboco {
             ProgramaBuilder programaBuilder = new ProgramaBuilder();
             
             Programa programa = programaBuilder.reset()
-                .setTipo(TipoPrograma.ABCD)
+                .setTipo(TipoPrograma.Cardio)
                 .addSerie(serie1)
                 .addSerie(serie2)
                 .addSerie(serie3)
                 .addSerie(serie3)
                 .build();
-
-            System.out.println(programa.proximaSerie());
+            
+            int iterador = 0;
+            
+           // programa.setTipo(TipoPrograma.ABCD);
+            programa.init();
+            while(programa.temProximo(iterador)){
+                Serie serie = programa.proximaSerie(iterador);
+                System.out.println(serie);
+                iterador++;
+            }
+            
         }catch(Exception e){
             
         }

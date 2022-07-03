@@ -9,6 +9,7 @@ import java.util.List;
 import prova2esboco.strategy.ABCDStrategy;
 import prova2esboco.strategy.CardioStrategy;
 import prova2esboco.strategy.FullWorkoutStrategy;
+import prova2esboco.strategy.ProgramaStrategy;
 
 /**
  *
@@ -17,33 +18,33 @@ import prova2esboco.strategy.FullWorkoutStrategy;
 public class Programa {
     
     private List<Serie> series;
+    List<Serie> listStrategy;
     private TipoPrograma tipo;
+    private ProgramaStrategy strategy;
 
-    public Programa(List<Serie> series, TipoPrograma tipo) {
+    public Programa(List<Serie> series, TipoPrograma tipo,ProgramaStrategy strategy) {
         this.series = series;
         this.tipo = tipo;
+        this.strategy = strategy;
     }
     
     public Programa(){}
     
-    public List<Serie> proximaSerie() throws Exception{
+    public void init() throws Exception{
+        this.listStrategy = this.strategy.proximaSerie(series);  
+    }
+    
+    public boolean temProximo(int iterador){
         
-        List<Serie> seriesDoPrograma;
-        
-        
-        if(this.tipo == TipoPrograma.FullWorkout){
-            FullWorkoutStrategy fws = new FullWorkoutStrategy();
-            seriesDoPrograma = fws.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.ABCD){
-            ABCDStrategy abcdS = new ABCDStrategy();
-            seriesDoPrograma = abcdS.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.Cardio){
-            CardioStrategy cs = new CardioStrategy();
-            seriesDoPrograma = cs.proximaSerie(series);
-        }else{
-            throw new Exception("O tipo informado é invalido.");
+        if(iterador >= this.listStrategy.size()){
+            return false;
         }
-        return seriesDoPrograma;
+        return true;
+    }
+    
+    public Serie proximaSerie(int iterador) throws Exception{
+
+        return this.listStrategy.get(iterador);
     }
 
     public List<Serie> getSeries() {
@@ -58,8 +59,13 @@ public class Programa {
         return tipo;
     }
 
-    public void setTipo(TipoPrograma tipo) {
+    public void setTipo(TipoPrograma tipo) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ProgramaStrategy strategy = (ProgramaStrategy) Class.forName(tipo.getClassName()).newInstance();
         this.tipo = tipo;
+        this.strategy = strategy;
     }
-    
+
+    public List<Serie> getListStrategy() {
+        return listStrategy;
+    }
 }

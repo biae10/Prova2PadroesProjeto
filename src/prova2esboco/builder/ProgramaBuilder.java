@@ -10,6 +10,7 @@ import java.util.List;
 import prova2esboco.exercicio.Programa;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.exercicio.TipoPrograma;
+import prova2esboco.strategy.ProgramaStrategy;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ProgramaBuilder implements ProgramaFactory{
 
     private List<Serie> series;
     private TipoPrograma tipo;
+    private ProgramaStrategy strategy;
     
     @Override
     public ProgramaFactory reset() {
@@ -34,14 +36,16 @@ public class ProgramaBuilder implements ProgramaFactory{
     }
 
     @Override
-    public ProgramaFactory setTipo(TipoPrograma tipo) {
+    public ProgramaFactory setTipo(TipoPrograma tipo) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+        ProgramaStrategy strategy = (ProgramaStrategy) Class.forName(tipo.getClassName()).newInstance();
         this.tipo = tipo;
+        this.strategy = strategy;
         return this;
     }
 
     @Override
     public Programa build() {
-        return new Programa(this.series, this.tipo);
+        return new Programa(this.series, this.tipo, this.strategy);
     }
     
 }
