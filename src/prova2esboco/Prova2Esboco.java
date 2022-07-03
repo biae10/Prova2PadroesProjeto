@@ -53,7 +53,7 @@ public class Prova2Esboco {
         Exercicio perna = exercicioBuilder.reset()
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
-                .addTipo(TipoExercicio.Funcional)
+                .addTipo(TipoExercicio.Cardiovascular)
                 .build();
         
         Exercicio Abdominal = exercicioBuilder.reset()
@@ -119,15 +119,14 @@ public class Prova2Esboco {
             programa.inscrever(instrutor4);
             programa.inscrever(instrutor5);
             
-           programa.desinscrever(instrutor1);
+           //programa.desinscrever(instrutor1);
             
             int iterador = 0;
             
-            programa.setTipo(TipoPrograma.ABCD);
+            programa.setTipo(TipoPrograma.Cardio);
             programa.init();
             while(programa.temProximo(iterador)){
                 Serie serie = programa.proximaSerie(iterador);
-             //   System.out.println(serie);
                 iterador++;
             }
             

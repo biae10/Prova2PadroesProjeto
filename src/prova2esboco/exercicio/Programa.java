@@ -24,7 +24,7 @@ public class Programa implements Subject{
     private List<Serie> listStrategy;
     private ProgramaStrategy strategy;
     private TipoPrograma tipo;
-    private List<Listener> listeners = new ArrayList();
+    private List<Listener> observadores = new ArrayList();
 
     public Programa(List<Serie> series, TipoPrograma tipo,ProgramaStrategy strategy) {
         this.series = series;
@@ -73,18 +73,18 @@ public class Programa implements Subject{
     }
 
     @Override
-    public void inscrever(Listener observer) {
-        this.listeners.add(observer);
+    public void inscrever(Listener observador) {
+        this.observadores.add(observador);
     }
 
     @Override
-    public void desinscrever(Listener observer) {
-        this.listeners.remove(observer);
+    public void desinscrever(Listener observador) {
+        this.observadores.remove(observador);
     }
 
     @Override
     public void notificar() {
-        for(Listener listener: this.listeners){
+        for(Listener listener: this.observadores){
             listener.update(this.tipo);
         }
     }

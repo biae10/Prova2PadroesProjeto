@@ -12,7 +12,7 @@ import prova2esboco.exercicio.TipoPrograma;
  * @author HAPPY
  */
 public interface Listener {
-    
+
     public void update(TipoPrograma tipo);
     
 }
