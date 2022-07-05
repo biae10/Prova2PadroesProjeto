@@ -5,6 +5,9 @@
  */
 package prova2esboco;
 
+import java.util.ArrayList;
+import java.util.List;
+import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.Singleton.Catalogo;
 import prova2esboco.builder.ExercicioBuilder;
 import prova2esboco.exercicio.Exercicio;
@@ -58,15 +61,36 @@ public class Prova2Esboco {
         
         Exercicio Abdominal = exercicioBuilder.reset()
                 .addEquipamento(eq2)
-                .addGrupoMuscular(TipoGrupoMuscular.Peito)
+                .addGrupoMuscular(TipoGrupoMuscular.Ombros)
+                .addGrupoMuscular(TipoGrupoMuscular.Costa)
                 .addTipo(TipoExercicio.Cardiovascular)
                 .addTipo(TipoExercicio.Resistido)
                 .addTipo(TipoExercicio.Cardiovascular)
                 .build();
         
-      //  System.out.println(barriga.getGrupos());
-        //System.out.println(barriga.getTipos());
-         
+        
+        List<Equipamento> testeequipamentos = new ArrayList();
+        testeequipamentos.add(eq2);
+        testeequipamentos.add(eq1);
+        
+        List<TipoExercicio> testetipos = new ArrayList();
+        testetipos.add(TipoExercicio.Resistido);
+        testetipos.add(TipoExercicio.Mobilidade);
+        
+        List<TipoGrupoMuscular> testegrupos = new ArrayList();
+        testegrupos.add(TipoGrupoMuscular.Peito);
+        testegrupos.add(TipoGrupoMuscular.Biceps);
+        List<TipoGrupoMuscular> testegrupos2 = new ArrayList();
+        testegrupos2.add(TipoGrupoMuscular.Inferiores);
+        testegrupos2.add(TipoGrupoMuscular.Abdominal);
+        
+        
+        ExercicioCombinado pontaFinalTeste = new ExercicioCombinado("Abre e fecha",testetipos,testegrupos,testeequipamentos,barriga);
+        ExercicioCombinado teste = new ExercicioCombinado("Polichinelo",testetipos,testegrupos,testeequipamentos, new ExercicioCombinado("Corrida Hop",testetipos,testegrupos2,testeequipamentos,pontaFinalTeste));
+        
+        System.out.println(teste.getGrupos());
+        
+ 
         try{
             
         }catch(Exception e){
