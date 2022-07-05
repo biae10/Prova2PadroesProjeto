@@ -14,10 +14,10 @@ import prova2esboco.equipamentos.Equipamento;
  */
 public class Exercicio {
     
-    private String nome;
-    private List<TipoExercicio> tipos;
-    private List<TipoGrupoMuscular> grupos;
-    private List<Equipamento> equipamentos;
+    protected String nome;
+    protected List<TipoExercicio> tipos;
+    protected List<TipoGrupoMuscular> grupos;
+    protected List<Equipamento> equipamentos;
 
     public Exercicio(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos) {
         this.nome = nome;
