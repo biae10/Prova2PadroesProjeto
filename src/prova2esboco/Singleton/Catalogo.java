@@ -22,31 +22,25 @@ public class Catalogo {
     
     public Equipamento gerarEquipamento(TipoEquipamento tipo,String identificador, int quantidade) throws Exception{
         
+        int verifica = 0;
         EquipamentoFactory factory = EquipamentoFactory.retornarFactory(tipo);
         Equipamento equipamento = null;
         
         for(int i = 0; i < this.equipamentos.size(); i++){
             if(this.equipamentos.get(i).getIdentificador() == identificador){
-                
                 String nameEq = this.equipamentos.get(i).getClass().getName();
                 String nameEnum = tipo.getClassName();
+                verifica = 1;
                 if(nameEq == nameEnum){
                     equipamento = this.equipamentos.get(i);
                     equipamento.aumentarQuantidade(quantidade);
                 }else{
                    throw new Exception("Elemento encontrado com esse identificador, porém a solicitação nova está com um tipo incompatível");
                 }
-                
-            }else{
-               equipamento = factory.gerarEquipamento();
-               equipamento.setIdentificador(identificador);
-               equipamento.setQuantidade(quantidade);
-               this.equipamentos.add(equipamento);
-               break;
             }
         }
         
-        if(this.equipamentos.size() <= 0){
+        if(this.equipamentos.size() <= 0 || verifica != 1){
             equipamento = factory.gerarEquipamento();
             equipamento.setIdentificador(identificador);
             equipamento.setQuantidade(quantidade);

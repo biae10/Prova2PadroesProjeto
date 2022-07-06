@@ -20,4 +20,5 @@ public abstract class Video {
     }
  
     public abstract void play();
+    public abstract String getTitulo();
 }
