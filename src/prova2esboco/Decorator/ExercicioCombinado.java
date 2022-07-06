@@ -10,6 +10,7 @@ import java.util.List;
 import prova2esboco.equipamentos.Equipamento;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -19,8 +20,8 @@ public class ExercicioCombinado extends ExercicioDecorator{
     
     private Exercicio exercicio;
     
-    public ExercicioCombinado(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos,Exercicio exercicio){
-        super(nome, tipos, grupos, equipamentos);
+    public ExercicioCombinado(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos,Exercicio exercicio,Video video){
+        super(nome, tipos, grupos, equipamentos,video);
         this.exercicio = exercicio;
     }
     

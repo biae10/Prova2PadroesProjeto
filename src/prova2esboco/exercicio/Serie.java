@@ -5,6 +5,7 @@
  */
 package prova2esboco.exercicio;
 
+import prova2esboco.flyweight.Video;
 /**
  *
  * @author HAPPY
@@ -44,7 +45,11 @@ public class Serie {
     public void setExercicio(ExercicioSimples exercicio) {
         this.exercicio = exercicio;
     }
+
     
-    
+    public void executar(){
+        System.out.println("O exercício '" + this.exercicio.getNome() + "' deve ser executado " + this.numeroRepeticoes +" vezes. A quantidade do exercício é "+ this.quantidade);
+        this.exercicio.getVideo().play();
+    }
     
 }

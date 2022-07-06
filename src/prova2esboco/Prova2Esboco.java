@@ -24,6 +24,8 @@ import prova2esboco.builder.SerieBuilder;
 import prova2esboco.exercicio.Programa;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.exercicio.TipoPrograma;
+import prova2esboco.flyweight.Video;
+import prova2esboco.flyweight.VideoFactory;
 import prova2esboco.model.Instrutor;
 import prova2esboco.model.Pessoa;
 
@@ -39,6 +41,8 @@ public class Prova2Esboco {
     public static void main(String[] args) throws Exception {
         
         Catalogo cat = new Catalogo();
+        VideoFactory vf = new VideoFactory();
+        
         
         Equipamento eq1 = cat.gerarEquipamento(TipoEquipamento.Maquina, "HaltBianca", 25);
         Equipamento eq2 = cat.gerarEquipamento(TipoEquipamento.Acessorio,"Voaodor", 5);
@@ -46,30 +50,38 @@ public class Prova2Esboco {
         ExercicioFactory exercicioBuilder = new ExercicioBuilder();
         
         ExercicioSimples barriga = exercicioBuilder.reset()
-        .setNome("Treino de Braço!")
+        .setNome("Treino de barriga")
         .addGrupoMuscular(TipoGrupoMuscular.Ombros)
         .addGrupoMuscular(TipoGrupoMuscular.Abdominal)
         .addTipo(TipoExercicio.Resistido)
         .addEquipamento(eq2)
         .addGrupoMuscular(TipoGrupoMuscular.Biceps)
         .addEquipamento(eq1)
+        .setVideo(vf.getVideo("Treino De Barriga Carol Borba", "VIDEO"))
         .build();
         
         ExercicioSimples perna = exercicioBuilder.reset()
+                .setNome("Treino de perna")
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
                 .addTipo(TipoExercicio.Cardiovascular)
+                .setVideo(vf.getVideo("Treino De Barriga Carol Borba", "VIDEO"))
                 .build();
         
         ExercicioSimples Abdominal = exercicioBuilder.reset()
+                .setNome("Exercicio abdominal")
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Ombros)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
                 .addTipo(TipoExercicio.Cardiovascular)
                 .addTipo(TipoExercicio.Resistido)
                 .addTipo(TipoExercicio.Cardiovascular)
+                .setVideo(vf.getVideo("Treino Abdominal com Carol Borba", "VIDEO"))
                 .build();
         
+        System.out.println(barriga.getVideo());
+        System.out.println(perna.getVideo());
+        System.out.println(Abdominal.getVideo());
         
         List<Equipamento> testeequipamentos = new ArrayList();
         testeequipamentos.add(eq2);
@@ -171,6 +183,7 @@ public class Prova2Esboco {
             programa.init();
             while(programa.temProximo(iterador)){
                 Serie serie = programa.proximaSerie(iterador);
+                serie.executar();
                 iterador++;
             }
             

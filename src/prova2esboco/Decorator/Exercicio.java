@@ -9,6 +9,7 @@ import java.util.List;
 import prova2esboco.equipamentos.Equipamento;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -20,12 +21,14 @@ public abstract class Exercicio {
     protected List<TipoExercicio> tipos;
     protected List<TipoGrupoMuscular> grupos;
     protected List<Equipamento> equipamentos;
+    private Video video;
     
-    public Exercicio(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos){
+    public Exercicio(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos,Video video){
         this.nome = nome;
         this.tipos = tipos;
         this.grupos = grupos;
         this.equipamentos = equipamentos;
+        this.video = video;
     }
     
     public Exercicio(String nome){
@@ -50,6 +53,14 @@ public abstract class Exercicio {
 
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
+    }
+
+    public Video getVideo() {
+        return video;
+    }
+
+    public void setVideo(Video video) {
+        this.video = video;
     }
     
     public abstract List<TipoGrupoMuscular> getGrupos();

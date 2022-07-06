@@ -11,6 +11,7 @@ import prova2esboco.exercicio.TipoGrupoMuscular;
 import java.util.ArrayList;
 import java.util.List;
 import prova2esboco.equipamentos.Equipamento;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ExercicioBuilder implements ExercicioFactory{
     private List<TipoExercicio> tipos;
     private List<TipoGrupoMuscular> grupos;
     private List<Equipamento> equipamentos;
+    private Video video;
 
     @Override
     public ExercicioFactory reset() {
@@ -57,8 +59,13 @@ public class ExercicioBuilder implements ExercicioFactory{
     }
 
     @Override
-    public ExercicioSimples build() {
-        return new ExercicioSimples(nome,tipos,grupos,equipamentos);
+    public ExercicioFactory setVideo(Video video) {
+        this.video = video;
+        return this;
     }
     
+    @Override
+    public ExercicioSimples build() {
+        return new ExercicioSimples(nome,tipos,grupos,equipamentos,video);
+    }
 }
