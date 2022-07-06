@@ -7,10 +7,12 @@ package prova2esboco;
 
 import java.util.ArrayList;
 import java.util.List;
+import prova2esboco.Decorator.Exercicio;
 import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.Singleton.Catalogo;
 import prova2esboco.builder.ExercicioBuilder;
-import prova2esboco.exercicio.Exercicio;
+import prova2esboco.builder.ExercicioCombinadoBuilder;
+import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
 import prova2esboco.equipamentos.Equipamento;
@@ -43,7 +45,7 @@ public class Prova2Esboco {
 
         ExercicioFactory exercicioBuilder = new ExercicioBuilder();
         
-        Exercicio barriga = exercicioBuilder.reset()
+        ExercicioSimples barriga = exercicioBuilder.reset()
         .setNome("Treino de Braço!")
         .addGrupoMuscular(TipoGrupoMuscular.Ombros)
         .addGrupoMuscular(TipoGrupoMuscular.Abdominal)
@@ -53,13 +55,13 @@ public class Prova2Esboco {
         .addEquipamento(eq1)
         .build();
         
-        Exercicio perna = exercicioBuilder.reset()
+        ExercicioSimples perna = exercicioBuilder.reset()
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
                 .addTipo(TipoExercicio.Cardiovascular)
                 .build();
         
-        Exercicio Abdominal = exercicioBuilder.reset()
+        ExercicioSimples Abdominal = exercicioBuilder.reset()
                 .addEquipamento(eq2)
                 .addGrupoMuscular(TipoGrupoMuscular.Ombros)
                 .addGrupoMuscular(TipoGrupoMuscular.Costa)
@@ -84,11 +86,29 @@ public class Prova2Esboco {
         testegrupos2.add(TipoGrupoMuscular.Inferiores);
         testegrupos2.add(TipoGrupoMuscular.Abdominal);
         
+        ExercicioCombinadoBuilder combinadoBuilder = new  ExercicioCombinadoBuilder();
         
-        ExercicioCombinado pontaFinalTeste = new ExercicioCombinado("Abre e fecha",testetipos,testegrupos,testeequipamentos,barriga);
-        ExercicioCombinado teste = new ExercicioCombinado("Polichinelo",testetipos,testegrupos,testeequipamentos, new ExercicioCombinado("Corrida Hop",testetipos,testegrupos2,testeequipamentos,pontaFinalTeste));
+        Exercicio PanturrilhaPerna = combinadoBuilder.reset()
+                .setNome("PanturrilhaPerna")
+                .addTipo(TipoExercicio.Resistido)
+                .addTipo(TipoExercicio.Mobilidade)
+                .addGrupoMuscular(TipoGrupoMuscular.Inferiores)
+                .addGrupoMuscular(TipoGrupoMuscular.Abdominal)
+                .addEquipamento(eq2)
+                .addEquipamento(eq1)
+                .withExercicio(Abdominal).build();
         
-        System.out.println(teste.getGrupos());
+        Exercicio PanturrilhaPernaPe = combinadoBuilder.reset()
+                .setNome("PanturrilhaPernaPe")
+                .addTipo(TipoExercicio.Resistido)
+                .addTipo(TipoExercicio.Mobilidade)
+                .addGrupoMuscular(TipoGrupoMuscular.Peito)
+                .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                .addEquipamento(eq2)
+                .addEquipamento(eq1)
+                .withExercicio(PanturrilhaPerna).build();
+              
+        System.out.println(PanturrilhaPernaPe.getGrupos());
         
  
         try{
@@ -147,7 +167,7 @@ public class Prova2Esboco {
             
             int iterador = 0;
             
-            programa.setTipo(TipoPrograma.Cardio);
+            programa.setTipo(TipoPrograma.FullWorkout);
             programa.init();
             while(programa.temProximo(iterador)){
                 Serie serie = programa.proximaSerie(iterador);

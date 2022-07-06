@@ -5,7 +5,7 @@
  */
 package prova2esboco.builder;
 
-import prova2esboco.exercicio.Exercicio;
+import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
 import java.util.ArrayList;
@@ -57,8 +57,8 @@ public class ExercicioBuilder implements ExercicioFactory{
     }
 
     @Override
-    public Exercicio build() {
-        return new Exercicio(nome,tipos,grupos,equipamentos);
+    public ExercicioSimples build() {
+        return new ExercicioSimples(nome,tipos,grupos,equipamentos);
     }
     
 }

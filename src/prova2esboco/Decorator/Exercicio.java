@@ -3,30 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prova2esboco.exercicio;
+package prova2esboco.Decorator;
 
 import java.util.List;
 import prova2esboco.equipamentos.Equipamento;
+import prova2esboco.exercicio.TipoExercicio;
+import prova2esboco.exercicio.TipoGrupoMuscular;
 
 /**
  *
  * @author HAPPY
  */
-public class Exercicio {
+public abstract class Exercicio {
     
     protected String nome;
     protected List<TipoExercicio> tipos;
     protected List<TipoGrupoMuscular> grupos;
     protected List<Equipamento> equipamentos;
-
-    public Exercicio(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos) {
+    
+    public Exercicio(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos){
         this.nome = nome;
         this.tipos = tipos;
         this.grupos = grupos;
         this.equipamentos = equipamentos;
     }
-
-    public Exercicio(String nome) {
+    
+    public Exercicio(String nome){
         this.nome = nome;
     }
 
@@ -38,28 +40,22 @@ public class Exercicio {
         this.nome = nome;
     }
 
-    public List<TipoExercicio> getTipos() {
-        return tipos;
-    }
-
     public void setTipos(List<TipoExercicio> tipos) {
         this.tipos = tipos;
-    }
-
-    public List<TipoGrupoMuscular> getGrupos() {
-        return grupos;
     }
 
     public void setGrupos(List<TipoGrupoMuscular> grupos) {
         this.grupos = grupos;
     }
 
-    public List<Equipamento> getEquipamentos() {
-        return equipamentos;
-    }
-
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
+    
+    public abstract List<TipoGrupoMuscular> getGrupos();
+    
+    public abstract List<TipoExercicio> getTipos();
+    
+    public abstract List<Equipamento> getEquipamentos();
     
 }
