@@ -7,7 +7,7 @@ package prova2esboco.Decorator;
 
 import java.util.List;
 import prova2esboco.equipamentos.Equipamento;
-import prova2esboco.exercicio.Exercicio;
+import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
 

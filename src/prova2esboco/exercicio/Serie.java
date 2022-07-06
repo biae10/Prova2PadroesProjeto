@@ -13,9 +13,9 @@ public class Serie {
     
     private int numeroRepeticoes;
     private int quantidade;
-    private Exercicio exercicio;
+    private ExercicioSimples exercicio;
 
-    public Serie(int numeroRepeticoes, int quantidade, Exercicio exercicio) {
+    public Serie(int numeroRepeticoes, int quantidade, ExercicioSimples exercicio) {
         this.numeroRepeticoes = numeroRepeticoes;
         this.quantidade = quantidade;
         this.exercicio = exercicio;
@@ -37,11 +37,11 @@ public class Serie {
         this.quantidade = quantidade;
     }
 
-    public Exercicio getExercicio() {
+    public ExercicioSimples getExercicio() {
         return exercicio;
     }
 
-    public void setExercicio(Exercicio exercicio) {
+    public void setExercicio(ExercicioSimples exercicio) {
         this.exercicio = exercicio;
     }
     
