@@ -164,7 +164,7 @@ public class Prova2Esboco {
         
         //Instância exercicios combinados
         ExercicioCombinadoBuilder combinadoBuilder = new  ExercicioCombinadoBuilder();
-        Exercicio corridaEBarra=null;
+        Exercicio corridaEBarra=null,pesoCorridaBarra = null;
         
         try{
             corridaEBarra = combinadoBuilder.reset()
@@ -182,6 +182,23 @@ public class Prova2Esboco {
             
         }
         
+        try{
+            pesoCorridaBarra = combinadoBuilder.reset()
+                    .setNome("Corrida, peso e barra")
+                    .addEquipamento(bicicleta)
+                    .addEquipamento(halter)
+                    .addEquipamento(barraFixa)
+                    .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                    .addGrupoMuscular(TipoGrupoMuscular.Inferiores)
+                    .addGrupoMuscular(TipoGrupoMuscular.Peito)
+                    .addTipo(TipoExercicio.Funcional)
+                    .setVideo(vf.getVideo("Execução de corrida + Subida em barra + levantamento de peso", "CONTEUDO"))
+                    .withExercicio(corridaEBarra)
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
         //Exibição dos exercícios
         System.out.println("----------------Exercícios Gerados----------------");
         
@@ -195,8 +212,8 @@ public class Prova2Esboco {
         System.out.println();
         
         System.out.println("----------------Info dos exercícios Combinados----------------");
-        System.out.println("Grupos Musculares do exercicio "+corridaEBarra.getNome()+":"+corridaEBarra.getGrupos());
-        System.out.println("Tipos do exercicio "+corridaEBarra.getNome()+":"+corridaEBarra.getTipos());
+        System.out.println("Grupos Musculares do exercicio "+pesoCorridaBarra.getNome()+":"+pesoCorridaBarra.getGrupos());
+        System.out.println("Tipos do exercicio "+pesoCorridaBarra.getNome()+":"+pesoCorridaBarra.getTipos());
         System.out.println("--------------------------------------------------------------");
         System.out.println();
         
