@@ -5,10 +5,11 @@
  */
 package prova2esboco.builder;
 
-import prova2esboco.exercicio.Exercicio;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
 import prova2esboco.equipamentos.Equipamento;
+import prova2esboco.exercicio.ExercicioSimples;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -21,6 +22,7 @@ public interface ExercicioFactory {
     public ExercicioFactory addTipo(TipoExercicio tipo);
     public ExercicioFactory addGrupoMuscular(TipoGrupoMuscular grupo);
     public ExercicioFactory addEquipamento(Equipamento equipamento);
-    public Exercicio build();
+    public ExercicioFactory setVideo(Video video);
+    public ExercicioSimples build();
  
 }

@@ -5,6 +5,8 @@
  */
 package prova2esboco.exercicio;
 
+import prova2esboco.Decorator.Exercicio;
+import prova2esboco.flyweight.Video;
 /**
  *
  * @author HAPPY
@@ -41,10 +43,13 @@ public class Serie {
         return exercicio;
     }
 
-    public void setExercicio(Exercicio exercicio) {
+    public void setExercicio(ExercicioSimples exercicio) {
         this.exercicio = exercicio;
     }
+
     
-    
+    public void executar(){
+        System.out.println("[VÍDEO '"+this.exercicio.getVideo().getTitulo()+"' DO EXERCÍCIO "+ this.exercicio.getNome()+"] / "+this.numeroRepeticoes+" x "+this.quantidade);
+    }
     
 }

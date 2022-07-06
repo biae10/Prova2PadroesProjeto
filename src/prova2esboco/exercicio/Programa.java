@@ -5,45 +5,49 @@
  */
 package prova2esboco.exercicio;
 
+import java.util.ArrayList;
 import java.util.List;
+import prova2esboco.listener.Listener;
+import prova2esboco.listener.Subject;
 import prova2esboco.strategy.ABCDStrategy;
 import prova2esboco.strategy.CardioStrategy;
 import prova2esboco.strategy.FullWorkoutStrategy;
+import prova2esboco.strategy.ProgramaStrategy;
 
 /**
  *
  * @author HAPPY
  */
-public class Programa {
+public class Programa implements Subject{
     
     private List<Serie> series;
+    private List<Serie> listStrategy;
+    private ProgramaStrategy strategy;
     private TipoPrograma tipo;
+    private List<Listener> observadores = new ArrayList();
 
-    public Programa(List<Serie> series, TipoPrograma tipo) {
+    public Programa(List<Serie> series, TipoPrograma tipo,ProgramaStrategy strategy) {
         this.series = series;
         this.tipo = tipo;
+        this.strategy = strategy;
     }
     
     public Programa(){}
     
-    public List<Serie> proximaSerie() throws Exception{
-        
-        List<Serie> seriesDoPrograma;
-        
-        
-        if(this.tipo == TipoPrograma.FullWorkout){
-            FullWorkoutStrategy fws = new FullWorkoutStrategy();
-            seriesDoPrograma = fws.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.ABCD){
-            ABCDStrategy abcdS = new ABCDStrategy();
-            seriesDoPrograma = abcdS.proximaSerie(series);
-        }else if(this.tipo == TipoPrograma.Cardio){
-            CardioStrategy cs = new CardioStrategy();
-            seriesDoPrograma = cs.proximaSerie(series);
-        }else{
-            throw new Exception("O tipo informado é invalido.");
+    public void init() throws Exception{
+        this.listStrategy = this.strategy.proximaSerie(series);  
+    }
+    
+    public boolean temProximo(int iterador){
+        if(iterador >= this.listStrategy.size()){
+            this.notificar();
+            return false;
         }
-        return seriesDoPrograma;
+        return true;
+    }
+    
+    public Serie proximaSerie(int iterador) throws Exception{
+        return this.listStrategy.get(iterador);
     }
 
     public List<Serie> getSeries() {
@@ -58,8 +62,30 @@ public class Programa {
         return tipo;
     }
 
-    public void setTipo(TipoPrograma tipo) {
+    public void setTipo(TipoPrograma tipo) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ProgramaStrategy strategy = (ProgramaStrategy) Class.forName(tipo.getClassName()).newInstance();
         this.tipo = tipo;
+        this.strategy = strategy;
     }
-    
+
+    public List<Serie> getListStrategy() {
+        return listStrategy;
+    }
+
+    @Override
+    public void inscrever(Listener observador) {
+        this.observadores.add(observador);
+    }
+
+    @Override
+    public void desinscrever(Listener observador) {
+        this.observadores.remove(observador);
+    }
+
+    @Override
+    public void notificar() {
+        for(Listener listener: this.observadores){
+            listener.update(this.tipo);
+        }
+    }
 }

@@ -5,9 +5,14 @@
  */
 package prova2esboco;
 
+import java.util.ArrayList;
+import java.util.List;
+import prova2esboco.Decorator.Exercicio;
+import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.Singleton.Catalogo;
 import prova2esboco.builder.ExercicioBuilder;
-import prova2esboco.exercicio.Exercicio;
+import prova2esboco.builder.ExercicioCombinadoBuilder;
+import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
 import prova2esboco.equipamentos.Equipamento;
@@ -19,6 +24,10 @@ import prova2esboco.builder.SerieBuilder;
 import prova2esboco.exercicio.Programa;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.exercicio.TipoPrograma;
+import prova2esboco.flyweight.Video;
+import prova2esboco.flyweight.VideoFactory;
+import prova2esboco.model.Instrutor;
+import prova2esboco.model.Pessoa;
 
 /**
  *
@@ -31,82 +40,267 @@ public class Prova2Esboco {
      */
     public static void main(String[] args) throws Exception {
         
-        Catalogo cat = new Catalogo();
         
-        Equipamento eq1 = cat.gerarEquipamento(TipoEquipamento.Maquina, "HaltBianca", 25);
-        Equipamento eq2 = cat.gerarEquipamento(TipoEquipamento.Acessorio,"Voaodor", 5);
-
-        ExercicioFactory exercicioBuilder = new ExercicioBuilder();
+       Catalogo cat = new Catalogo();
+        VideoFactory vf = new VideoFactory();
         
-        Exercicio barriga = exercicioBuilder.reset()
-        .setNome("Treino de Braço!")
-        .addGrupoMuscular(TipoGrupoMuscular.Ombros)
-        .addGrupoMuscular(TipoGrupoMuscular.Abdominal)
-        .addTipo(TipoExercicio.Resistido)
-        .addEquipamento(eq2)
-        .addGrupoMuscular(TipoGrupoMuscular.Biceps)
-        .addEquipamento(eq1)
-        .build();
+        //Equipamentos instância
+        Equipamento esteira=null, bicicleta=null,halter=null,halter2=null,barraFixa=null,teste=null;
         
-        Exercicio perna = exercicioBuilder.reset()
-                .addEquipamento(eq2)
-                .addGrupoMuscular(TipoGrupoMuscular.Costa)
-                .addTipo(TipoExercicio.Funcional)
-                .build();
-        
-        Exercicio Abdominal = exercicioBuilder.reset()
-                .addEquipamento(eq2)
-                .addGrupoMuscular(TipoGrupoMuscular.Peito)
-                .addTipo(TipoExercicio.Cardiovascular)
-                .addTipo(TipoExercicio.Resistido)
-                .addTipo(TipoExercicio.Cardiovascular)
-                .build();
-        
-        System.out.println(barriga.getGrupos());
-        System.out.println(barriga.getTipos());
-         
+        //Instância dos equipamentos
         try{
-            
+            esteira = cat.gerarEquipamento(TipoEquipamento.Maquina, "Esteira", 10);
+        }catch(Exception e){
+            throw e;
+        }
+       
+        try{
+            bicicleta = cat.gerarEquipamento(TipoEquipamento.Maquina, "Bicicleta", 5);
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            halter = cat.gerarEquipamento(TipoEquipamento.Halter, "Halter", 3);
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            barraFixa = cat.gerarEquipamento(TipoEquipamento.Acessorio, "BarraFixa", 7);
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            halter2 = cat.gerarEquipamento(TipoEquipamento.Halter, "Halter", 10);
+        }catch(Exception e){
+            throw e;
+        }
+
+        //Teste de impressão dos equipamentos
+        System.out.println("----------------Equipamentos Gerados----------------");
+        System.out.println(esteira.getIdentificador());
+        System.out.println(bicicleta.getIdentificador());
+        System.out.println(halter.getIdentificador());
+        System.out.println(barraFixa.getIdentificador());
+        System.out.println(halter2.getIdentificador());
+        System.out.println("----------------------------------------------------");
+        System.out.println();
+        
+        // Declaração dos exercicios simples
+        ExercicioFactory exercicioBuilder = new ExercicioBuilder();
+        Exercicio corridaAerobica=null,corridaErgometrica=null, subidaEmBarra=null, 
+                levantamentoPeso=null, levantamentoPeso2kg=null;
+
+        //Instância exercicios
+        try{
+           corridaAerobica = exercicioBuilder.reset()
+                .setNome("Corrida Aerobica")
+                .addEquipamento(esteira)
+                .addGrupoMuscular(TipoGrupoMuscular.Triceps)
+                .addGrupoMuscular(TipoGrupoMuscular.Inferiores)
+                .addTipo(TipoExercicio.Cardiovascular)
+                .addTipo(TipoExercicio.Funcional)
+                .setVideo(vf.getVideo("Execução de Corrida Aerobica", "CONTEUDO"))
+                .build(); 
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            corridaErgometrica = exercicioBuilder.reset()
+                .setNome("Corrida ergonmetrica")
+                .addEquipamento(bicicleta)
+                .addGrupoMuscular(TipoGrupoMuscular.Inferiores)
+                .addTipo(TipoExercicio.Resistido)
+                .addTipo(TipoExercicio.Mobilidade)
+                .setVideo(vf.getVideo("Execução de corrida ergometrica", "CONTEUDO"))
+                .build();
+        }catch(Exception e){
+            throw e;
+        }
+
+        try{
+            subidaEmBarra = exercicioBuilder.reset()
+                    .setNome("Subida em Barra Fixa")
+                    .addEquipamento(barraFixa)
+                    .addGrupoMuscular(TipoGrupoMuscular.Ombros)
+                    .addGrupoMuscular(TipoGrupoMuscular.Peito)
+                    .addGrupoMuscular(TipoGrupoMuscular.Costa)
+                    .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                    .addTipo(TipoExercicio.Funcional)
+                    .setVideo(vf.getVideo("Execução barra fixa", "CONTEUDO"))
+                    .build();          
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            levantamentoPeso = exercicioBuilder.reset()
+                    .setNome("Levantamento de Peso")
+                    .addEquipamento(halter)
+                    .addGrupoMuscular(TipoGrupoMuscular.Triceps)
+                    .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                    .addTipo(TipoExercicio.Resistido)
+                    .setVideo(vf.getVideo("Execução Levantamento de Peso", "CONTEUDO"))
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            levantamentoPeso2kg = exercicioBuilder.reset()
+                    .setNome("Levantamento de Peso 2KG")
+                    .addEquipamento(halter)
+                    .addGrupoMuscular(TipoGrupoMuscular.Triceps)
+                    .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                    .addTipo(TipoExercicio.Resistido)
+                    .setVideo(vf.getVideo("Execução Levantamento de Peso", "CONTEUDO"))
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
+        //Instância exercicios combinados
+        ExercicioCombinadoBuilder combinadoBuilder = new  ExercicioCombinadoBuilder();
+        Exercicio corridaEBarra=null;
+        
+        try{
+            corridaEBarra = combinadoBuilder.reset()
+                    .setNome("Corrida com Barra")
+                    .addEquipamento(bicicleta)
+                    .addEquipamento(esteira)
+                    .addGrupoMuscular(TipoGrupoMuscular.Inferiores)
+                    .addGrupoMuscular(TipoGrupoMuscular.Biceps)
+                    .addTipo(TipoExercicio.Resistido)
+                    .addTipo(TipoExercicio.Mobilidade)
+                    .setVideo(vf.getVideo("Execução de corrida + Subida em barra", "CONTEUDO"))
+                    .withExercicio(subidaEmBarra)
+                    .build();
         }catch(Exception e){
             
         }
         
+        //Exibição dos exercícios
+        System.out.println("----------------Exercícios Gerados----------------");
+        
+        System.out.println(corridaAerobica.getNome());
+        System.out.println(corridaErgometrica.getNome());
+        System.out.println(subidaEmBarra.getNome());
+        System.out.println(levantamentoPeso.getNome());
+        System.out.println(levantamentoPeso2kg.getNome());
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println();
+        
+        System.out.println("----------------Info dos exercícios Combinados----------------");
+        System.out.println("Grupos Musculares do exercicio "+corridaEBarra.getNome()+":"+corridaEBarra.getGrupos());
+        System.out.println("Tipos do exercicio "+corridaEBarra.getNome()+":"+corridaEBarra.getTipos());
+        System.out.println("--------------------------------------------------------------");
+        System.out.println();
+        
+        //Instância das séries
+        SerieBuilder serieBuilder = new SerieBuilder();
+        Serie serieCardio=null, serieBracosRedondos=null, serieForca=null, serieCorrida=null,serieForcaECardio=null;
+        
+        //Definição das séries
+        try{
+            serieCardio = serieBuilder.reset()
+                    .setExercicio(corridaAerobica)
+                    .setNumeroRepeticoes(5)
+                    .setQuantidade(2)
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
         
         try{
-            
-            SerieBuilder serieBuilder = new SerieBuilder();
-        
-            Serie serie1 = serieBuilder.reset()
-                .setExercicio(barriga)
-                .setNumeroRepeticoes(3)
-                .setQuantidade(1)
-                .build();
-        
-            Serie serie2 = serieBuilder.reset()
-                .setExercicio(perna)
-                .setNumeroRepeticoes(5)
-                .setQuantidade(2)
-                .build();
-        
-            Serie serie3 = serieBuilder.reset()
-                .setExercicio(Abdominal)
-                .setNumeroRepeticoes(3)
-                .setQuantidade(3)
-                .build();
-            
-            ProgramaBuilder programaBuilder = new ProgramaBuilder();
-            
-            Programa programa = programaBuilder.reset()
-                .setTipo(TipoPrograma.ABCD)
-                .addSerie(serie1)
-                .addSerie(serie2)
-                .addSerie(serie3)
-                .addSerie(serie3)
-                .build();
-
-            System.out.println(programa.proximaSerie());
+            serieBracosRedondos = serieBuilder.reset()
+                    .setExercicio(subidaEmBarra)
+                    .setNumeroRepeticoes(3)
+                    .setQuantidade(3)
+                    .build();
         }catch(Exception e){
-            
+            throw e;
+        }
+        
+        try{
+            serieForca = serieBuilder.reset()
+                    .setExercicio(levantamentoPeso2kg)
+                    .setNumeroRepeticoes(10)
+                    .setQuantidade(5)
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            serieCorrida = serieBuilder.reset()
+                    .setExercicio(corridaErgometrica)
+                    .setNumeroRepeticoes(1)
+                    .setQuantidade(1)
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
+        try{
+            serieForcaECardio = serieBuilder.reset()
+                    .setExercicio(corridaEBarra)
+                    .setNumeroRepeticoes(15)
+                    .setQuantidade(1)
+                    .build();
+        }catch(Exception e){
+           throw e; 
+        }
+        
+        //Instância do programa
+        ProgramaBuilder programaBuilder = new ProgramaBuilder();
+        Programa programa;
+        int iterador = 0;
+        
+        try{
+            programa = programaBuilder.reset()
+                    .setTipo(TipoPrograma.Cardio)
+                    .addSerie(serieCardio)
+                    .addSerie(serieBracosRedondos)
+                    .addSerie(serieForca)
+                    .addSerie(serieCorrida)
+                    .addSerie(serieForcaECardio)
+                    .build();
+        }catch(Exception e){
+            throw e;
+        }
+        
+        
+        
+        //Definição dos Intrutores que ficaram de ouvinte na execução do programa
+        Pessoa instrutor1 = new Instrutor("Bianca");
+        Pessoa instrutor2 = new Instrutor("Cristiano");
+        Pessoa instrutor3 = new Instrutor("Messi");
+        Pessoa instrutor4 = new Instrutor("Neymar");
+        Pessoa instrutor5 = new Instrutor("Fred");
+        
+        //Inscrevendo os instrutores no listener do programa
+        programa.inscrever(instrutor1);
+        programa.inscrever(instrutor2);
+        programa.inscrever(instrutor3);
+        programa.inscrever(instrutor4);
+        programa.inscrever(instrutor5);
+        
+        //Desinscrevendo um instrutor da lista de ouvintes
+        programa.desinscrever(instrutor2);
+        
+        
+        System.out.println("----------------Execução do Programa (Séries do dia atual)----------------");
+        programa.setTipo(TipoPrograma.FullWorkout);
+        programa.init();
+        while(programa.temProximo(iterador)){
+            Serie serie = programa.proximaSerie(iterador);
+            serie.executar();
+            System.out.println();
+            iterador++;
         }
         
         

@@ -5,67 +5,77 @@
  */
 package prova2esboco.builder;
 
-import prova2esboco.exercicio.ExercicioSimples;
-import prova2esboco.exercicio.TipoExercicio;
-import prova2esboco.exercicio.TipoGrupoMuscular;
 import java.util.ArrayList;
 import java.util.List;
+import prova2esboco.Decorator.Exercicio;
+import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.equipamentos.Equipamento;
+import prova2esboco.exercicio.TipoExercicio;
+import prova2esboco.exercicio.TipoGrupoMuscular;
 import prova2esboco.flyweight.Video;
 
 /**
  *
  * @author HAPPY
  */
-public class ExercicioBuilder implements ExercicioFactory{
-    
+public class ExercicioCombinadoBuilder implements ExercicioCombinadoFactory{
+
     private String nome;
     private List<TipoExercicio> tipos;
     private List<TipoGrupoMuscular> grupos;
     private List<Equipamento> equipamentos;
+    private Exercicio exercicio;
     private Video video;
-
+    
     @Override
-    public ExercicioFactory reset() {
-        this.nome = null;
+    public ExercicioCombinadoFactory reset() {
+        this.nome = "";
         this.tipos = new ArrayList();
         this.grupos = new ArrayList();
         this.equipamentos = new ArrayList();
+        this.exercicio = null;
         return this;
     }
 
     @Override
-    public ExercicioFactory setNome(String nome) {
+    public ExercicioCombinadoFactory setNome(String nome) {
         this.nome = nome;
         return this;
     }
 
     @Override
-    public ExercicioFactory addTipo(TipoExercicio tipo) {
+    public ExercicioCombinadoFactory addTipo(TipoExercicio tipo) {
         this.tipos.add(tipo);
         return this;
     }
 
     @Override
-    public ExercicioFactory addGrupoMuscular(TipoGrupoMuscular grupo) {
+    public ExercicioCombinadoFactory addGrupoMuscular(TipoGrupoMuscular grupo) {
         this.grupos.add(grupo);
         return this;
     }
 
     @Override
-    public ExercicioFactory addEquipamento(Equipamento equipamento) {
+    public ExercicioCombinadoFactory addEquipamento(Equipamento equipamento) {
         this.equipamentos.add(equipamento);
         return this;
     }
 
     @Override
-    public ExercicioFactory setVideo(Video video) {
+    public ExercicioCombinadoFactory withExercicio(Exercicio exercicio) {
+        this.exercicio = exercicio;
+        return this;
+    }
+
+     @Override
+    public ExercicioCombinadoFactory setVideo(Video video) {
         this.video = video;
         return this;
     }
     
     @Override
-    public ExercicioSimples build() {
-        return new ExercicioSimples(nome,tipos,grupos,equipamentos,video);
+    public ExercicioCombinado build() {
+        return new ExercicioCombinado(this.nome,this.tipos, this.grupos, this.equipamentos, this.exercicio,video);
     }
+
 }

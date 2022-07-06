@@ -5,8 +5,10 @@
  */
 package prova2esboco.builder;
 
-import prova2esboco.exercicio.Exercicio;
+import prova2esboco.Decorator.Exercicio;
+import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.Serie;
+import prova2esboco.flyweight.Video;
 
 /**
  *
