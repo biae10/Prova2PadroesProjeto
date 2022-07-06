@@ -5,6 +5,7 @@
  */
 package prova2esboco.builder;
 
+import prova2esboco.Decorator.Exercicio;
 import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.flyweight.Video;
@@ -18,7 +19,7 @@ public interface SerieFactory {
     public SerieFactory reset();
     public SerieFactory setNumeroRepeticoes(int repeticoes);
     public SerieFactory setQuantidade(int quantidade);
-    public SerieFactory setExercicio(ExercicioSimples exercicio);
+    public SerieFactory setExercicio(Exercicio exercicio);
     public Serie build();
     
 }

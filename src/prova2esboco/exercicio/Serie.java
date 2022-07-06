@@ -5,6 +5,7 @@
  */
 package prova2esboco.exercicio;
 
+import prova2esboco.Decorator.Exercicio;
 import prova2esboco.flyweight.Video;
 /**
  *
@@ -14,9 +15,9 @@ public class Serie {
     
     private int numeroRepeticoes;
     private int quantidade;
-    private ExercicioSimples exercicio;
+    private Exercicio exercicio;
 
-    public Serie(int numeroRepeticoes, int quantidade, ExercicioSimples exercicio) {
+    public Serie(int numeroRepeticoes, int quantidade, Exercicio exercicio) {
         this.numeroRepeticoes = numeroRepeticoes;
         this.quantidade = quantidade;
         this.exercicio = exercicio;
@@ -38,7 +39,7 @@ public class Serie {
         this.quantidade = quantidade;
     }
 
-    public ExercicioSimples getExercicio() {
+    public Exercicio getExercicio() {
         return exercicio;
     }
 
@@ -48,8 +49,7 @@ public class Serie {
 
     
     public void executar(){
-        System.out.println("O exercício '" + this.exercicio.getNome() + "' deve ser executado " + this.numeroRepeticoes +" vezes. A quantidade do exercício é "+ this.quantidade);
-        this.exercicio.getVideo().play();
+        System.out.println("[VÍDEO '"+this.exercicio.getVideo().getTitulo()+"' DO EXERCÍCIO "+ this.exercicio.getNome()+"] / "+this.numeroRepeticoes+" x "+this.quantidade);
     }
     
 }

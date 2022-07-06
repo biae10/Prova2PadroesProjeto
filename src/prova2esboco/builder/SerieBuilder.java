@@ -5,6 +5,7 @@
  */
 package prova2esboco.builder;
 
+import prova2esboco.Decorator.Exercicio;
 import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.Serie;
 import prova2esboco.flyweight.Video;
@@ -18,7 +19,7 @@ public class SerieBuilder implements SerieFactory{
     
     private int numeroRepeticoes;
     private int quantidade;
-    private ExercicioSimples exercicio;
+    private Exercicio exercicio;
     private Video video;
     
     @Override
@@ -42,7 +43,7 @@ public class SerieBuilder implements SerieFactory{
     }
 
     @Override
-    public SerieFactory setExercicio(ExercicioSimples exercicio) {
+    public SerieFactory setExercicio(Exercicio exercicio) {
         this.exercicio = exercicio;
         return this;
     }

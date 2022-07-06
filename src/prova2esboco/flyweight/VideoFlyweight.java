@@ -19,5 +19,10 @@ public class VideoFlyweight extends Video{
     public void play() {
         System.out.println("[VIDEO DO EXERCICIO "+this.titulo+"]");
     }
+
+    @Override
+    public String getTitulo() {
+        return this.titulo;
+    }
     
 }
