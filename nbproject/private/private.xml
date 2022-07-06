@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/HAPPY/Documents/NetBeansProjects/Prova2Esboco/src/prova2esboco/builder/SerieBuilder.java</file>
+            <file>file:/C:/Users/HAPPY/Documents/NetBeansProjects/Prova2Esboco/src/prova2esboco/Prova2Esboco.java</file>
+            <file>file:/C:/Users/HAPPY/Documents/NetBeansProjects/Prova2Esboco/src/prova2esboco/exercicio/Serie.java</file>
+            <file>file:/C:/Users/HAPPY/Documents/NetBeansProjects/Prova2Esboco/src/prova2esboco/Singleton/Catalogo.java</file>
+            <file>file:/C:/Users/HAPPY/Documents/NetBeansProjects/Prova2Esboco/src/prova2esboco/builder/SerieFactory.java</file>
+        </group>
     </open-files>
 </project-private>
