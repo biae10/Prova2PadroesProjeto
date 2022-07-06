@@ -10,6 +10,7 @@ import prova2esboco.equipamentos.Equipamento;
 import prova2esboco.exercicio.ExercicioSimples;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -17,8 +18,8 @@ import prova2esboco.exercicio.TipoGrupoMuscular;
  */
 public abstract class ExercicioDecorator extends Exercicio{
     
-    public ExercicioDecorator(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos) {
-        super(nome, tipos, grupos, equipamentos);
+    public ExercicioDecorator(String nome, List<TipoExercicio> tipos, List<TipoGrupoMuscular> grupos, List<Equipamento> equipamentos, Video video) {
+        super(nome, tipos, grupos, equipamentos,video);
     }
 
 }

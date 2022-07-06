@@ -10,6 +10,7 @@ import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.equipamentos.Equipamento;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -22,5 +23,6 @@ public interface ExercicioCombinadoFactory {
     public ExercicioCombinadoFactory addGrupoMuscular(TipoGrupoMuscular grupo);
     public ExercicioCombinadoFactory addEquipamento(Equipamento equipamento);
     public ExercicioCombinadoFactory withExercicio(Exercicio exercicio);
+    public ExercicioCombinadoFactory setVideo(Video video);
     public ExercicioCombinado build();
 }

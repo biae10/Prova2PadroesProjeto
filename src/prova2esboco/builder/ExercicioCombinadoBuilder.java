@@ -12,6 +12,7 @@ import prova2esboco.Decorator.ExercicioCombinado;
 import prova2esboco.equipamentos.Equipamento;
 import prova2esboco.exercicio.TipoExercicio;
 import prova2esboco.exercicio.TipoGrupoMuscular;
+import prova2esboco.flyweight.Video;
 
 /**
  *
@@ -19,11 +20,12 @@ import prova2esboco.exercicio.TipoGrupoMuscular;
  */
 public class ExercicioCombinadoBuilder implements ExercicioCombinadoFactory{
 
-    protected String nome;
-    protected List<TipoExercicio> tipos;
-    protected List<TipoGrupoMuscular> grupos;
-    protected List<Equipamento> equipamentos;
+    private String nome;
+    private List<TipoExercicio> tipos;
+    private List<TipoGrupoMuscular> grupos;
+    private List<Equipamento> equipamentos;
     private Exercicio exercicio;
+    private Video video;
     
     @Override
     public ExercicioCombinadoFactory reset() {
@@ -65,9 +67,15 @@ public class ExercicioCombinadoBuilder implements ExercicioCombinadoFactory{
         return this;
     }
 
-    @Override
-    public ExercicioCombinado build() {
-        return new ExercicioCombinado(this.nome,this.tipos, this.grupos, this.equipamentos, this.exercicio);
+     @Override
+    public ExercicioCombinadoFactory setVideo(Video video) {
+        this.video = video;
+        return this;
     }
     
+    @Override
+    public ExercicioCombinado build() {
+        return new ExercicioCombinado(this.nome,this.tipos, this.grupos, this.equipamentos, this.exercicio,video);
+    }
+
 }
